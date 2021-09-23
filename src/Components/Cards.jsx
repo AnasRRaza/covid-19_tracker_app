@@ -11,9 +11,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '50px auto',
   },
   Paper: {
-    // width: "300px",
     padding: theme.spacing(2),
-    // textAlign: 'center',
     color: theme.palette.text.secondary,
   },
 }));
@@ -26,9 +24,8 @@ export default function Cards(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={3}>
-
-          <Paper className={classes.Paper} elevation={3}>
+        <Grid item xs={12} md={3} >
+          <Paper className={`${classes.Paper} cases`} elevation={3}>
             <Typography color="textSecondary" gutterBottom>Total Cases</Typography>
             <Typography variant="h5">
               <CountUp
@@ -40,16 +37,15 @@ export default function Cards(props) {
             </Typography>
             <Typography variant="body2">Number of total cases of COVID-19</Typography>
           </Paper>
-
         </Grid>
         <Grid item xs={12} md={3}>
-          <Paper className={classes.Paper} elevation={3}>
+          <Paper className={`${classes.Paper} recovered`} elevation={3}>
             <Typography color="textSecondary" gutterBottom>Total Recovered</Typography>
             <Typography variant="h5">
               <CountUp
                 start={0}
                 end={totalRecovered}
-                duration={1.5}
+                duration={2.5}
                 separator=","
               />
             </Typography>
@@ -57,13 +53,13 @@ export default function Cards(props) {
           </Paper>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Paper className={classes.Paper} elevation={3}>
+          <Paper className={`${classes.Paper} active`} elevation={3}>
             <Typography color="textSecondary" gutterBottom>Active Cases</Typography>
             <Typography variant="h5">
               <CountUp
                 start={0}
                 end={totalActive}
-                duration={1.5}
+                duration={2.5}
                 separator=","
               />
             </Typography>
@@ -71,13 +67,13 @@ export default function Cards(props) {
           </Paper>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Paper className={classes.Paper} elevation={3}>
+          <Paper className={`${classes.Paper} deaths`} elevation={3}>
             <Typography color="textSecondary" gutterBottom>Total Deaths</Typography>
             <Typography variant="h5">
               <CountUp
                 start={0}
                 end={totalDeaths}
-                duration={1.5}
+                duration={2.5}
                 separator=","
               />
             </Typography>

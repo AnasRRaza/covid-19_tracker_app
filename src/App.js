@@ -3,55 +3,34 @@ import React, { useEffect, useState } from 'react'
 import Cards from './Components/Cards';
 import Navbar from './Components/Navbar';
 import Charts from './Components/Charts';
-import { GlobalData, DailyData, CountryNames, CountryData } from './API_CALL';
+import { GlobalData } from './API_CALL';
 import CountryPicker from './Components/CountyrPicker';
 
 
 function App() {
 
-  const [globalData, setGlobalData] = useState({});
-  const [daily, setDaily] = useState({});
-  const [country, setCountry] = useState([]);
-  const [countryData, setCountryData] = useState("");
+  const [data, setData] = useState({});
+  const [countryName, setCountryName] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
-      setGlobalData(await GlobalData());
+      setData(await GlobalData());
     }
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setDaily(await DailyData());
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setCountry(await CountryNames())
-    }
-    fetchData();
-  }, [])
-
-  const handleCountryChange = (countryData) => {
-    console.log(countryData);
+  const handleCountryChange = async (country) => {
+    setCountryName(country);
+    setData(await GlobalData(country));
+    return countryName;
   }
-  useEffect(() => {
-    const fetchData = async () => {
-      setCountryData(await CountryData(countryData))
-    }
-    fetchData();
-  })
-
 
   return (
     <>
       <Navbar />
-      <Cards data={globalData} />
-      <CountryPicker country={country} handleCountryChange={handleCountryChange} />
-      <Charts data={globalData} daily={daily} />
+      <Cards data={data} />
+      <CountryPicker handleCountryChange={handleCountryChange} />
+      <Charts data={data} countryName={countryName} />
     </>
   );
 }

@@ -1,57 +1,58 @@
 import axios from "axios";
 
 
-const url = "https://disease.sh/v2/all";
+const globalUrl = "https://disease.sh/v2/all";
+const singleCountryUrl = "https://disease.sh/v2/countries";
 
-export const GlobalData = async () => {
-  try {
-    const { data } = await axios(url);
-    const requiredData = {
-      totalCases: data.cases,
-      totalRecovered: data.recovered,
-      totalDeaths: data.deaths,
-      totalActive: data.active
+
+export const GlobalData = async (country) => {
+  if (country) {
+    try {
+      const { data } = await axios(`${singleCountryUrl}/${country}`);
+      const requiredData = {
+        totalCases: data.cases,
+        totalRecovered: data.recovered,
+        totalDeaths: data.deaths,
+        totalActive: data.active
+      }
+      return requiredData;
+    } catch (e) {
+      console.log(e);
     }
-    return requiredData;
-  } catch (error) {
-    console.log(error);
+  } else {
+    try {
+      const { data } = await axios(globalUrl);
+      const requiredData = {
+        totalCases: data.cases,
+        totalRecovered: data.recovered,
+        totalDeaths: data.deaths,
+        totalActive: data.active
+      }
+      return requiredData;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
-const global_data_url = "https://disease.sh/v2/historical/all?lastdays=200";
+const dailyDataUrl = "https://disease.sh/v2/historical/all?lastdays=200";
 
 export const DailyData = async () => {
   try {
-    const { data } = await axios(global_data_url);
+    const { data } = await axios(dailyDataUrl);
     return data;
   } catch (e) {
     console.log(e);
   }
 }
 
-const countryUrl = "https://disease.sh/v2/countries";
+const countryNamesUrl = "https://disease.sh/v2/countries";
 
 export const CountryNames = async () => {
   try {
-    const { data } = await axios(countryUrl);
-    console.log(data);
+    const { data } = await axios(countryNamesUrl);
     return data;
-    // data.map((v)=>{
-    //   console.log(v.country);
-    // })
   } catch (e) {
     console.log(e)
   }
 }
-
-
-export const CountryData = (country) => {
-  try {
-    const { data } = `${countryUrl}/${country}`
-    console.log(data);
-  } catch (e) {
-    console.log(e);
-  }
-}
-// const cc = "Afghanistan";
-// CountryData(cc)

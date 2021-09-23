@@ -1,71 +1,94 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Bar, Line } from 'react-chartjs-2';
+
+import { DailyData } from "../API_CALL";
 
 
 const Charts = (props) => {
+
+  const { data: { totalCases, totalRecovered, totalActive, totalDeaths }, countryName } = props;
+
+  const [dailyData, setDailyData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setDailyData(await DailyData());
+    }
+    fetchData();
+  }, []);
+
+  const LineChart = (
+    dailyData ?
+      <Line
+        data={{
+          labels: dailyData.deaths ? Object.keys(dailyData.deaths).map((v) => {
+            return v
+          }) : "",
+          datasets: [
+            {
+              label: 'Infected',
+              borderColor: "blue",
+              fill: "true",
+              data: dailyData.cases ? Object.values(dailyData.cases).map((v) => {
+                return v
+              }) : "",
+            },
+            {
+              label: 'Deaths',
+              borderColor: "red",
+              data: dailyData.deaths ? Object.values(dailyData.deaths).map((v) => {
+                return v
+              }) : "",
+            },
+            {
+              label: 'Recovered',
+              borderColor: "lightGreen",
+              data: dailyData.deaths ? Object.values(dailyData.recovered).map((v) => {
+                return v
+              }) : "",
+            },
+          ],
+        }}
+        height={120}
+      /> : null
+  );
+
+  const BarChart = (
+    totalCases ?
+      <Bar
+        data={{
+          labels: ["Infected", "Recovered", "Active", "Deaths"],
+          datasets: [
+            {
+              label: "People",
+              backgroundColor: ["blue", "lightGreen", "yellow", "red"],
+              data: [totalCases, totalRecovered, totalActive, totalDeaths],
+            },
+          ],
+        }}
+        height={120}
+        options={{
+          lengend: { display: false },
+          title: {
+            display: true,
+            text: `Current State in ${countryName}`
+          },
+        }}
+      /> : null
+  )
 
   const container = {
     width: "85%",
     margin: "10px auto",
   }
 
-  const LineChart = (
-    <Line
-      data={{
-        labels: props.daily.deaths ? Object.keys(props.daily.deaths).map((v) => {
-          return v
-        }) : "",
-        datasets: [
-          {
-            label: 'Infected',
-            borderColor: "#3333ff",
-            fill: "true",
-            data: props.daily.deaths ? Object.values(props.daily.cases).map((v) => {
-              return v
-            }) : "",
-          },
-          {
-            label: 'Deaths',
-            borderColor: "red",
-            data: props.daily.deaths ? Object.values(props.daily.deaths).map((v) => {
-              return v
-            }) : "",
-          },
-          {
-            label: 'Recovered',
-            borderColor: "green",
-            data: props.daily.deaths ? Object.values(props.daily.recovered).map((v) => {
-              return v
-            }) : "",
-          },
-        ],
-      }}
-    />
-  );
-
-  const { data: { totalCases, totalRecovered, totalDeaths, totalActive } } = props;
-
-  const BarChart = (
-    <Bar
-      data={{
-        labels: ["Infected", "Recovered", "Active", "Deaths"],
-        datasets: [
-          {
-            label: 'infected',
-            backgroundColor: ["#123c69", "#59ba83", "black", "#de6d6d"],
-            data: [totalCases, totalRecovered, totalActive, totalDeaths,],
-          },
-        ],
-      }}
-    />
-  )
   return (
     <div style={container}>
-      <h3>Current State in</h3>
-      {LineChart}
+      <h3 className="currentState">Current State in {countryName ? countryName : "Global"}</h3>
+      {countryName ? BarChart : LineChart}
 
-      {BarChart}
     </div>
   )
 }
+
 export default Charts;

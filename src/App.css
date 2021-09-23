@@ -1,0 +1,22 @@
+@media (max-width: 770px) {
+  .formControl{
+    width: 50vw;
+  }
+}
+
+.cases{
+  border-bottom: 10px solid blue;
+}
+.recovered  {
+  border-bottom: 10px solid lightGreen;
+}
+.active{
+  border-bottom: 10px solid yellow;
+}
+.deaths{
+  border-bottom: 10px solid red;
+}
+
+.currentState{
+  text-align: center;
+}
