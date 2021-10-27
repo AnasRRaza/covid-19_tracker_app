@@ -26,12 +26,12 @@ function App() {
   }
 
   return (
-    <>
+    <div className="conatiner">
       <Navbar />
       <Cards data={data} />
       <CountryPicker handleCountryChange={handleCountryChange} />
       <Charts data={data} countryName={countryName} />
-    </>
+    </div>
   );
 }
 

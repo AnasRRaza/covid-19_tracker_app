@@ -35,7 +35,7 @@ export const GlobalData = async (country) => {
   }
 }
 
-const dailyDataUrl = "https://disease.sh/v2/historical/all?lastdays=200";
+const dailyDataUrl = "https://disease.sh/v2/historical/all?lastdays=5000";
 
 export const DailyData = async () => {
   try {

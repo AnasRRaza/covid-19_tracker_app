@@ -40,13 +40,13 @@ const Charts = (props) => {
                 return v
               }) : "",
             },
-            {
-              label: 'Recovered',
-              borderColor: "lightGreen",
-              data: dailyData.deaths ? Object.values(dailyData.recovered).map((v) => {
-                return v
-              }) : "",
-            },
+            // {
+            //   label: 'Recovered',
+            //   borderColor: "lightGreen",
+            //   data: dailyData.deaths ? Object.values(dailyData.recovered).map((v) => {
+            //     return v
+            //   }) : "",
+            // },
           ],
         }}
         height={120}
@@ -77,16 +77,10 @@ const Charts = (props) => {
       /> : null
   )
 
-  const container = {
-    width: "85%",
-    margin: "10px auto",
-  }
-
   return (
-    <div style={container}>
+    <div className="ChartContainer">
       <h3 className="currentState">Current State in {countryName ? countryName : "Global"}</h3>
       {countryName ? BarChart : LineChart}
-
     </div>
   )
 }

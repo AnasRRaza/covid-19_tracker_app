@@ -16,17 +16,12 @@ const CountryPicker = (props) => {
     fetchData();
   }, [])
 
-  const picker = {
-    display: "flex",
-    width: "50%",
-    margin: "5px auto",
-  }
 
   return (
     <div >
-      <FormControl className="formControl" style={picker}>
+      <FormControl className="formControl">
         <NativeSelect className="nativeSelect" defaultValue="" onChange={(e) => { handleCountryChange(e.target.value) }} >
-          <option  className="option" value="">Global</option>
+          <option className="option" value="">Global</option>
           {country ? country.map((v, i) =>
             <option value={v.country} key={i}>{v.country}</option>
           ) : ""}

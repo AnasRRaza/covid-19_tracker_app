@@ -1,22 +1,60 @@
-@media (max-width: 770px) {
-  .formControl{
-    width: 50vw;
-  }
+.ImageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
-.cases{
+.cases {
   border-bottom: 10px solid blue;
 }
-.recovered  {
+
+.recovered {
   border-bottom: 10px solid lightGreen;
 }
-.active{
+
+.active {
   border-bottom: 10px solid yellow;
 }
-.deaths{
+
+.deaths {
   border-bottom: 10px solid red;
 }
 
-.currentState{
+.currentState {
   text-align: center;
+  font-size: 28px;
+  /* color: #111111; */
+  font-weight: 600;
+}
+
+.ChartContainer {
+  width: 85%;
+  margin: 10px auto;
+}
+
+.formControl {
+  display: flex !important;
+  width: 50%;
+  margin: 5px auto !important;
+}
+
+@media (max-width: 770px) {
+  .conatiner {
+    margin: 0 10%;
+  }
+  .ImageContainer {
+    width: 100%;
+  }
+  .CovidImage {
+    width: 100%;
+  }
+  .formControl {
+    width: 30%;
+  }
+  .ChartContainer {
+    width: 100%;
+  }
+  .barChart{
+    height: 1000px;
+  }
 }
