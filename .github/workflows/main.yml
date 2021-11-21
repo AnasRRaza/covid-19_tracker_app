@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [master]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,20 +23,22 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
- 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2-beta
-        with: 
+        with:
           version: 16
-      
+
       - name: Github Action for Yarn
         uses: Borales/actions-yarn@v2.3.0
         with:
           # Yarn command
           cmd: install
-          
+
+      - name: Creating build
+        run: sudo yarn build
+
       - name: Installing Surge
         run: npm i -g surge
-        
+
       - name: Deploying on Surge
-        run: surge ./build https://anas-covid-19-tracker.surge.sh/ --token ${{secrets.SURGE_TOKEN}}
+        run: surge ./build --token ${{secrets.DOMAIN}} --token ${{secrets.SURGE_TOKEN}}
